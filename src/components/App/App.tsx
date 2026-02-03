@@ -31,7 +31,7 @@ export default function App() {
             setError (false);
             const data = await fetchMovies(query);
             if (data.length === 0){
-                toast.error ("No movies find your request.");
+                toast.error ("No movies found for your request.");
                 return;
             }
             setMovieList (data);

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import type { Movie } from "../../types/movie";
 import css from "./MovieModal.module.css";
 
@@ -6,6 +7,8 @@ interface MovieModalProps {
   movie: Movie;
   onClose: () => void;
 }
+
+const modalRoot = document.getElementById("modal-root") as HTMLElement;
 
 export default function MovieModal({ movie, onClose }: MovieModalProps) {
     const handleSubmit = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -29,10 +32,18 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
     }
 ),[onClose];
 
-  return (
-    <div className={css.backdrop} role="dialog" aria-modal="true" onClick={handleSubmit}>
-      <div className={css.modal}>
-        <button className={css.closeButton} aria-label="Close modal" onClick={onClose}>
+  return createPortal (
+    <div 
+        className={css.backdrop} 
+        role="dialog"  
+        aria-modal="true" 
+        onClick={handleSubmit}>
+      <div 
+        className={css.modal}>
+        <button 
+            className={css.closeButton} 
+            aria-label="Close modal" 
+            onClick={onClose}>
           &times;
         </button>
         <img
@@ -51,6 +62,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
           </p>
         </div>
       </div>
-    </div>
+    </div>, 
+    modalRoot
   );
 }

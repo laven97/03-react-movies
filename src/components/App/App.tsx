@@ -15,16 +15,13 @@ export default function App() {
     const [error, setError] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const isModalClose = () => {
-        setIsModalOpen(false);
         setSelectedMovie (null);
     }
 
     const handleMovieSelect = (movie:Movie) => {
         setSelectedMovie (movie);
-        setIsModalOpen (true);
     }
 
     const handleSearch = async (query:string) => {
@@ -48,7 +45,7 @@ export default function App() {
     return (
         <div className={css.app}>
             <SearchBar onSubmit={handleSearch}/>
-            {isModalOpen && selectedMovie && (
+            {selectedMovie && (
                 <MovieModal movie={selectedMovie} onClose={isModalClose}/>
             )}
             <Toaster position="top-center" reverseOrder={false}/>
